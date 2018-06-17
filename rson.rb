@@ -5,15 +5,21 @@ class Rson
       self.class.send(:attr_accessor, key)
     end
   end
+
+  def self.ify
+    Rson.new yield
+  end
 end
 
-rson = Rson.new(
-  str: 'string',
-  arr: [
-    one: 'foo',
-    two: 'bar'
-  ]
-)
+rson = Rson.ify do
+  {
+    str: 'string',
+    arr: [
+      one: 'foo',
+      two: 'bar'
+    ]
+  }
+end
 
 puts rson.inspect
 puts
