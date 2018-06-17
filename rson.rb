@@ -1,6 +1,7 @@
 class Rson
   def initialize(rson_hash)
     rson_hash.each do |key, value|
+      value = Rson.new(value) if value.is_a? Hash
       instance_variable_set("@#{key}", value)
       self.class.send(:attr_accessor, key)
     end
@@ -17,11 +18,17 @@ rson = Rson.ify do
     arr: [
       one: 'foo',
       two: 'bar'
-    ]
+    ],
+    obj: {
+      foo: {
+        bar: 'success'
+      }
+    }
   }
 end
 
+# rson = Rson.ify { { str: 'string', num: 1 } }
+
 puts rson.inspect
 puts
-puts rson.str
-puts rson.arr[0]
+puts rson.obj.foo.bar
