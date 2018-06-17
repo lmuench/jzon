@@ -1,18 +1,18 @@
-class Rson
+class Jzon
   def initialize(rson_hash)
     rson_hash.each do |key, value|
-      value = Rson.new(value) if value.is_a? Hash
+      value = Jzon.new(value) if value.is_a? Hash
       instance_variable_set("@#{key}", value)
       self.class.send(:attr_accessor, key)
     end
   end
 
   def self.ify
-    Rson.new yield
+    Jzon.new yield
   end
 end
 
-rson = Rson.ify do
+jzon = Jzon.ify do
   {
     str: 'string',
     arr: [
@@ -27,8 +27,6 @@ rson = Rson.ify do
   }
 end
 
-# rson = Rson.ify { { str: 'string', num: 1 } }
-
-puts rson.inspect
+puts jzon.inspect
 puts
-puts rson.obj.foo.bar
+puts jzon.obj.foo.bar
