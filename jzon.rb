@@ -11,22 +11,3 @@ class Jzon
     Jzon.new yield
   end
 end
-
-jzon = Jzon.ify do
-  {
-    str: 'string',
-    arr: [
-      one: 'foo',
-      two: 'bar'
-    ],
-    obj: {
-      foo: {
-        bar: 'success'
-      }
-    }
-  }
-end
-
-puts jzon.inspect
-puts
-puts jzon.obj.foo.bar
