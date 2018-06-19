@@ -1,8 +1,6 @@
 require_relative '../lib/jzon'
 require 'rspec'
 
-# rubocop:disable Metrics/BlockLength
-
 RSpec.describe Jzon do
   describe '#ify' do
     it 'returns a Jzon object created from a hash passed as a block' do
@@ -118,5 +116,3 @@ RSpec.describe Jzon do
     end
   end
 end
-
-# rubocop:enable Metrics/BlockLength

@@ -1,5 +1,6 @@
 require 'json'
 
+# JSON-like object, created from a hash passed as a block to Jzon.ify
 class Jzon
   def initialize(jzon_hash)
     jzon_hash.each do |key, value|
