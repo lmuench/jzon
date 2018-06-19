@@ -70,6 +70,53 @@ RSpec.describe Jzon do
       expect(jzon).to eq('string')
     end
   end
+
+  describe '#stringify' do
+    it 'returns a stringified Json object' do
+      jzon = Jzon.ify do
+        {
+          m1: 'object->string',
+          m2: [
+            'object->array->string',
+            {
+              m1: 'object->array->object->string',
+              m2: [
+                'object->array->object->array->string'
+              ]
+            }
+          ],
+          m3: {
+            m1: 'object->object->string',
+            m2: {
+              m1: 'object->object->object->string'
+            }
+          }
+        }
+      end
+
+      json_string = jzon.stringify(true)
+      expect(json_string).to eq(
+        '{
+  "m1": "object->string",
+  "m2": [
+    "object->array->string",
+    {
+      "m1": "object->array->object->string",
+      "m2": [
+        "object->array->object->array->string"
+      ]
+    }
+  ],
+  "m3": {
+    "m1": "object->object->string",
+    "m2": {
+      "m1": "object->object->object->string"
+    }
+  }
+}'
+      )
+    end
+  end
 end
 
 # rubocop:enable Metrics/BlockLength
