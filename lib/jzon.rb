@@ -4,7 +4,7 @@ class Jzon
       if value.is_a? Hash
         value = Jzon.new(value)
       elsif value.is_a? Array
-        value = handle_array(value)
+        value = Jzon.handle_array(value)
       end
 
       instance_variable_set("@#{key}", value)
@@ -12,12 +12,12 @@ class Jzon
     end
   end
 
-  def handle_array(value)
-    value.map do |item|
+  def self.handle_array(jzon_array)
+    jzon_array.map do |item|
       if item.is_a? Hash
         Jzon.new(item)
       elsif item.is_a? Array
-        handle_array(item)
+        Jzon.handle_array(item)
       else
         item
       end
@@ -25,6 +25,13 @@ class Jzon
   end
 
   def self.ify
-    Jzon.new yield
+    block = yield
+    if block.is_a? Hash
+      Jzon.new(block)
+    elsif block.is_a? Array
+      Jzon.handle_array(block)
+    else
+      block
+    end
   end
 end
